@@ -1,6 +1,3 @@
-// TODO add flipping animation for toggle
-// TODO scatter pieces across
-// add toggle
 var mode = true; // true for shape, false for movement
 var shapeMap = new Map();
 var mvmntMap = new Map();
@@ -78,8 +75,6 @@ pieces.forEach(piece => {
                             mvmntMap.get(otherID).add(currID);
                         }
 
-                        // el.style.backgroundColor = 'red';
-                        // other.style.backgroundColor = 'red';
                         addAnimation(el, other);
                     }
                 }
@@ -122,27 +117,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const addAnimation = (elem1, elem2) => {
-    const class1 = elem1.className.split(/\s+/)[3];
-    const class2 = elem2.className.split(/\s+/)[3];
     const children1 = elem1.children[0];
     const children2 = elem2.children[0];
 
-    // if (class1 === 'solid') {
-        children1.style.animationPlayState = "running";
-    // }
-
-    // if (class2 === 'solid') {
-        children2.style.animationPlayState = "running";
-    // }
+    children1.style.animationPlayState = "running";
+    children2.style.animationPlayState = "running";
 };
 
 const removeAnimation = (elem1) => {
-    const class1 = elem1.className.split(/\s+/)[3];
     const children1 = elem1.children[0];
+    console.log(children1);
 
-    // if (class1 === 'solid') {
-        children1.style.animationPlayState = 'paused';
-    // }
+    children1.style.animationPlayState = 'paused';
 
     let nbrs = mode ? shapeMap.get(elem1.id) : mvmntMap.get(elem1.id);
     if (nbrs) {
@@ -151,12 +137,9 @@ const removeAnimation = (elem1) => {
             nbrVals.delete(elem1.id);
             if (nbrVals.size === 0) {
                 const elem2 = document.getElementById(key);
-                const class2 = elem2.className.split(/\s+/)[3];
                 const children2 = elem2.children[0];
 
-                // if (class2 === 'solid') {
-                    children2.style.animationPlayState = 'paused';
-                // }
+                children2.style.animationPlayState = 'paused';
             }
             if (mode) {
                 shapeMap.set(key, nbrVals);
